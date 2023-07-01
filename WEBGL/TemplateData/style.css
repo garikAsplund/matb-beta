@@ -1,0 +1,93 @@
+body {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+  
+  #unity-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  #unity-container.unity-mobile {
+    width: 100%;
+    height: 100%;
+  }
+  
+  #unity-canvas {
+    background: #FFFFFF;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .unity-mobile #unity-canvas {
+    width: 100%;
+    height: 100%;
+  }
+  
+  #unity-loading-bar {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+  }
+  
+  #unity-progress-bar-empty {
+    width: 141px;
+    height: 18px;
+    margin-top: 10px;
+    background: url('progress-bar-empty-light.png') no-repeat center;
+  }
+  
+  #unity-progress-bar-full {
+    width: 0%;
+    height: 18px;
+    margin-top: 10px;
+    background: url('progress-bar-full-light.png') no-repeat center;
+  }
+  
+  #unity-footer {
+    position: relative;
+  }
+  
+  .unity-mobile #unity-footer {
+    display: none;
+  }
+  
+  #unity-fullscreen-button {
+    float: right;
+    width: 38px;
+    height: 38px;
+    background: url('fullscreen-button.png') no-repeat center;
+  }
+  
+  #unity-warning {
+    position: absolute;
+    left: 50%;
+    top: 5%;
+    transform: translate(-50%);
+    background: white;
+    padding: 10px;
+    display: none;
+  }
+  
+  @media (max-aspect-ratio: 16/9) {
+    #unity-container {
+      width: 100vw;
+      height: calc(100vw * 9 / 16);
+      left: 0;
+      top: calc((100vh - 100vw * 9 / 16) / 2);
+    }
+  }
+  
+  @media (min-aspect-ratio: 16/9) {
+    #unity-container {
+      width: calc(100vh * 16 / 9);
+      height: 100vh;
+      left: calc((100vw - 100vh * 16 / 9) / 2);
+      top: 0;
+    }
+  }

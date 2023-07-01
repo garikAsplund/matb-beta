@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>MATB-Online</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <script>
+      function resizeUnityContainer() {
+        var container = document.getElementById('unity-container');
+        var canvas = document.getElementById('unity-canvas');
+        var aspectRatio = canvas.width / canvas.height;
+
+        if (window.innerWidth / window.innerHeight > aspectRatio) {
+          container.style.width = '100vw';
+          container.style.height = 'calc(100vw * 9 / 16)';
+          container.style.left = '0';
+          container.style.top = 'calc((100vh - 100vw * 9 / 16) / 2)';
+        } else {
+          container.style.width = 'calc(100vh * 16 / 9)';
+          container.style.height = '100vh';
+          container.style.left = 'calc((100vw - 100vh * 16 / 9) / 2)';
+          container.style.top = '0';
+        }
+      }
+
+      window.addEventListener('resize', resizeUnityCanvas);
+    </script>
+  </head>
+  <body onload="resizeUnityCanvas()">
+    <textarea id="clipboard" style="position: fixed; top: -9999px; left: -9999px;"></textarea>
+    <div id="unity-container" class="unity-desktop" >
+      <canvas id="unity-canvas"></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+      </div>
+      <div id="unity-warning"> </div>
+      <div id="unity-footer">
+        <div id="unity-fullscreen-button"></div>
+      </div>
+    </div>
+    <script>
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+      var warningBanner = document.querySelector("#unity-warning");
+
+      function copyToClipboard(text) {
+          var clippy = document.getElementById('clipboard');
+          clippy.value = JSON.stringify(text);
+          clippy.select();
+          document.execCommand('copy');
+          clippy.value = '';
+      }
+
+      function unityShowBanner(msg, type) {
+        function updateBannerVisibility() {
+          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+        }
+        var div = document.createElement('div');
+        div.innerHTML = msg;
+        warningBanner.appendChild(div);
+        if (type == 'error') div.style = 'background: red; padding: 10px;';
+        else {
+          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+          setTimeout(function() {
+            warningBanner.removeChild(div);
+            updateBannerVisibility();
+          }, 5000);
+        }
+        updateBannerVisibility();
+      }
+
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/matb-beta.loader.js";
+      var config = {
+        dataUrl: buildUrl + "/matb-beta.data",
+        frameworkUrl: buildUrl + "/matb-beta.framework.js",
+        codeUrl: buildUrl + "/matb-beta.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "NUS",
+        productName: "MATB-Online",
+        productVersion: "0.1",
+        showBanner: unityShowBanner,
+      };
+
+      loadingBar.style.display = "block";
+      document.addEventListener("keydown", function(event) {
+        if (event.keyCode === 27) {
+          container.style = "";
+        }
+      });
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          progressBarFull.style.width = 100 * progress + "%";
+        }).then((unityInstance) => {
+          loadingBar.style.display = "none";
+          fullscreenButton.onclick = () => {
+            container.style = "width: 100%; height: 100%;"
+          };
+        }).catch((message) => {
+          alert(message);
+        });
+      };
+      document.body.appendChild(script);
+    </script>
+  </body>
+</html>
