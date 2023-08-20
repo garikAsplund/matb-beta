@@ -1,23 +1,22 @@
 # MATB 2.0 Release Notes 📓
-### July 2023
-
-- Updated Unity-based multi attribute task battery gaming software and scripts for psychology researchers at Yale-NUS
-
-- Scripted improvements in C# for easy batch editing of experiment subjects and their settings
-
-- Utilized Firebase for auth and database management. Created bulk accounts and backed up database
-
-- Deployed Python scripts via Flask for regression analysis with pandas to dynamically adjust difficulty levels 
-
-- Used openpyxl to export user data to Excel in a readable manner based on name and session
-
-- Optimized Dockerfile for quicker, smaller builds and migrated to Python 3.11 for faster runtimes
-
-- Redesigned Unity UI for better UX and brought game up-to-date with latest version
-
-- Compressed larger sound and audio files for quicker load times with WebGL
-
-- Set up CI/CD pipeline to build images in Artifact Registry and deploy to Google Cloud Run on the edge in Singapore
-
-***
-[Garik Asplund](https://github.com/garikAsplund)
+ - 🎮 U**pdated Unity to v2022.3.2f1 Apple silicon** from v2019.4.20f
+  
+ - 🖥 **Redesigned UI for better UX**
+  
+  - 📜 Scripted improvements in C# for **easy batch editing**:
+  
+      - Admins can create and delete experiment groups
+      - Participants can be added to or removed from groups
+      - Admins can create preset session settings to apply to all users within a group
+      - Admins can create up to 250 users at once
+  - 💫 **Text fields handle copy/paste** as well as tabs
+  
+  - 🔎 Lists of participants are **searchable and sorted** properly
+  
+  - 🆗 User and batch settings **accurately display current settings**
+  
+  - 📥 **Backed up database** and set up autodelete after 30 days
+  
+  - 🚀 Compressed larger sound and audio files for **quicker load times**
+  
+  - 🤖 **Implemented CI/CD pipeline** via Cloud Build triggered on pushes to repo
