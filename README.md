@@ -1,5 +1,4 @@
 # MATB 2.0 Release Notes 📓
-## The frontend
 ### August 2023
 
  - 🎮 **Updated Unity to v2022.3.2f1 Apple silicon** from v2019.4.20f
